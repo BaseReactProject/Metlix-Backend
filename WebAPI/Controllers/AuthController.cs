@@ -44,8 +44,7 @@ public class AuthController : BaseController
     {
         RegisterCommand registerCommand = new() { UserForRegisterDto = userForRegisterDto, IpAddress = getIpAddress() };
         RegisteredResponse result = await Mediator.Send(registerCommand);
-        setRefreshTokenToCookie(result.RefreshToken);
-        return Created(uri: "", result.AccessToken);
+        return Ok();
     }
 
     [HttpGet("RefreshToken")]
@@ -65,14 +64,13 @@ public class AuthController : BaseController
         return Ok(result);
     }
 
-    [HttpGet("EnableEmailAuthenticator")]
-    public async Task<IActionResult> EnableEmailAuthenticator()
+    [HttpPost("EnableEmailAuthenticator")]
+    public async Task<IActionResult> EnableEmailAuthenticator(int userId)
     {
-        EnableEmailAuthenticatorCommand enableEmailAuthenticatorCommand =
-            new() { UserId = getUserIdFromRequest(), VerifyEmailUrlPrefix = $"{_configuration.ApiDomain}/Auth/VerifyEmailAuthenticator" };
-        await Mediator.Send(enableEmailAuthenticatorCommand);
+        EnableEmailAuthenticatorCommand enableEmailAuthenticatorCommand = new() { UserId = userId };
+        var result = await Mediator.Send(enableEmailAuthenticatorCommand  );
 
-        return Ok();
+        return Ok(result);
     }
 
     [HttpGet("EnableOtpAuthenticator")]

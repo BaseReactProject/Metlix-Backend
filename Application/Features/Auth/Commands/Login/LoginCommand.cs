@@ -1,13 +1,17 @@
 ﻿using Application.Features.Auth.Rules;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
+using Application.Services.MailService;
 using Application.Services.UsersService;
 using Core.Application.Dtos;
+using Core.Mailing;
 using Core.Security.Entities;
 using Core.Security.Enums;
 using Core.Security.JWT;
+using MailKit;
 using MediatR;
-
+using MimeKit;
+using System.Web;
 namespace Application.Features.Auth.Commands.Login;
 
 public class LoginCommand : IRequest<LoggedResponse>
@@ -33,18 +37,20 @@ public class LoginCommand : IRequest<LoggedResponse>
         private readonly IAuthenticatorService _authenticatorService;
         private readonly IAuthService _authService;
         private readonly IUserService _userService;
+        private readonly MailServiceBase _mailServiceBase;
 
         public LoginCommandHandler(
             IUserService userService,
             IAuthService authService,
             AuthBusinessRules authBusinessRules,
-            IAuthenticatorService authenticatorService
-        )
+            IAuthenticatorService authenticatorService,
+            MailServiceBase mailServiceBase)
         {
             _userService = userService;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
             _authenticatorService = authenticatorService;
+            _mailServiceBase = mailServiceBase;
         }
 
         public async Task<LoggedResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -55,6 +61,7 @@ public class LoginCommand : IRequest<LoggedResponse>
             );
             await _authBusinessRules.UserShouldBeExistsWhenSelected(user);
             await _authBusinessRules.UserPasswordShouldBeMatch(user!.Id, request.UserForLoginDto.Password);
+            await _authBusinessRules.UserShouldBeVerified(user!.Id);
 
             LoggedResponse loggedResponse = new();
 
@@ -69,13 +76,13 @@ public class LoginCommand : IRequest<LoggedResponse>
 
                 await _authenticatorService.VerifyAuthenticatorCode(user, request.UserForLoginDto.AuthenticatorCode);
             }
-
+            
             AccessToken createdAccessToken = await _authService.CreateAccessToken(user);
-
+            
             Core.Security.Entities.RefreshToken createdRefreshToken = await _authService.CreateRefreshToken(user, request.IpAddress);
             Core.Security.Entities.RefreshToken addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
             await _authService.DeleteOldRefreshTokens(user.Id);
-
+            
             loggedResponse.AccessToken = createdAccessToken;
             loggedResponse.RefreshToken = addedRefreshToken;
             return loggedResponse;

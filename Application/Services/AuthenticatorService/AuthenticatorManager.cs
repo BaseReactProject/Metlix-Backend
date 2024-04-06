@@ -1,10 +1,12 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Services.MailService;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Mailing;
 using Core.Security.EmailAuthenticator;
 using Core.Security.Entities;
 using Core.Security.Enums;
 using Core.Security.OtpAuthenticator;
+using MailKit;
 using MimeKit;
 
 namespace Application.Services.AuthenticatorService;
@@ -13,16 +15,18 @@ public class AuthenticatorManager : IAuthenticatorService
 {
     private readonly IEmailAuthenticatorHelper _emailAuthenticatorHelper;
     private readonly IEmailAuthenticatorRepository _emailAuthenticatorRepository;
-    private readonly IMailService _mailService;
+    private readonly Core.Mailing.IMailService _mailService;
     private readonly IOtpAuthenticatorHelper _otpAuthenticatorHelper;
     private readonly IOtpAuthenticatorRepository _otpAuthenticatorRepository;
+    private readonly MailServiceBase _serviceBase;
 
     public AuthenticatorManager(
         IEmailAuthenticatorHelper emailAuthenticatorHelper,
         IEmailAuthenticatorRepository emailAuthenticatorRepository,
-        IMailService mailService,
+        Core.Mailing.IMailService mailService,
         IOtpAuthenticatorHelper otpAuthenticatorHelper,
-        IOtpAuthenticatorRepository otpAuthenticatorRepository
+        IOtpAuthenticatorRepository otpAuthenticatorRepository,
+        MailServiceBase serviceBase
     )
     {
         _emailAuthenticatorHelper = emailAuthenticatorHelper;
@@ -30,6 +34,7 @@ public class AuthenticatorManager : IAuthenticatorService
         _mailService = mailService;
         _otpAuthenticatorHelper = otpAuthenticatorHelper;
         _otpAuthenticatorRepository = otpAuthenticatorRepository;
+        _serviceBase = serviceBase;
     }
 
     public async Task<EmailAuthenticator> CreateEmailAuthenticator(User user)
@@ -38,7 +43,7 @@ public class AuthenticatorManager : IAuthenticatorService
             new()
             {
                 UserId = user.Id,
-                ActivationKey = await _emailAuthenticatorHelper.CreateEmailActivationKey(),
+                ActivationKey = await _emailAuthenticatorHelper.CreateEmailActivationCode(),
                 IsVerified = false
             };
         return emailAuthenticator;
@@ -90,14 +95,54 @@ public class AuthenticatorManager : IAuthenticatorService
 
         var toEmailList = new List<MailboxAddress> { new(name: $"{user.FirstName} {user.LastName}", user.Email) };
 
-        _mailService.SendMail(
-            new Mail
-            {
-                ToList = toEmailList,
-                Subject = "Authenticator Code - NArchitecture",
-                TextBody = $"Enter your authenticator code: {authenticatorCode}"
-            }
-        );
+        await _serviceBase.SendEmailAsync(
+    new Mail
+    {
+        ToList = toEmailList,
+        Subject = "Metflix - Doğrulama Kodu",
+        HtmlBody = $@"
+            <!DOCTYPE html>
+            <html lang='en'>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <title>Doğrulama Kodu</title>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                        color: #333;
+                        text-align: center;
+                    }}
+                    .container {{
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        background-color: #fff;
+                        border-radius: 10px;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                    }}
+                    .code {{
+                        font-size: 36px;
+                        color: #007bff;
+                        margin-top: 20px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <img src='https://via.placeholder.com/200x100.png?text=Metflix+Logo' alt='Metflix Logo' style='max-width: 200px; margin-bottom: 20px;'>
+                    <h1>Metflix</h1>
+                    <p>Merhaba,</p>
+                    <p>Doğrulama kodunuz:</p>
+                    <div class='code'>{authenticatorCode}</div>
+                    <p>Lütfen bu kodu kullanarak işlemi tamamlayınız.</p>
+                </div>
+            </body>
+            </html>"
+    }
+);
+
     }
 
     private async Task VerifyAuthenticatorCodeWithEmail(User user, string authenticatorCode)
@@ -106,7 +151,7 @@ public class AuthenticatorManager : IAuthenticatorService
         if (emailAuthenticator is null)
             throw new NotFoundException("Email Authenticator not found.");
         if (emailAuthenticator.ActivationKey != authenticatorCode)
-            throw new BusinessException("Authenticator code is invalid.");
+            throw new BusinessException("Geçersiz Bir Şey Girdiniz.");
         emailAuthenticator.ActivationKey = null;
         await _emailAuthenticatorRepository.UpdateAsync(emailAuthenticator);
     }

@@ -32,35 +32,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             {
                 new OperationClaim { Id = ++id, Name = GeneralOperationClaims.Admin }
             };
-
-        
-        #region Brands
-        
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Brands.Admin" });
-        
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Brands.Read" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Brands.Write" });
-        
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Brands.Add" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Brands.Update" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Brands.Delete" });
-        
-        #endregion
-        
-        
-        #region FakeEntities
-        
-        seeds.Add(new OperationClaim { Id = ++id, Name = "FakeEntities.Admin" });
-        
-        seeds.Add(new OperationClaim { Id = ++id, Name = "FakeEntities.Read" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "FakeEntities.Write" });
-        
-        seeds.Add(new OperationClaim { Id = ++id, Name = "FakeEntities.Add" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "FakeEntities.Update" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "FakeEntities.Delete" });
-        
-        #endregion
-        
         return seeds;
     }
 }

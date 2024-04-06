@@ -1,11 +1,16 @@
 ﻿using Application.Features.Auth.Rules;
+using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
+using Application.Services.MailService;
 using Application.Services.Repositories;
 using Core.Application.Dtos;
+using Core.Mailing;
 using Core.Security.Entities;
+using Core.Security.Enums;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using MediatR;
+using MimeKit;
 
 namespace Application.Features.Auth.Commands.Register;
 
@@ -30,13 +35,19 @@ public class RegisterCommand : IRequest<RegisteredResponse>
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
+        private readonly IAuthenticatorService _authenticatorService;
         private readonly AuthBusinessRules _authBusinessRules;
+        private readonly MailServiceBase mailServiceBase;
+        private readonly IEmailAuthenticatorRepository _emailAuthenticatorRepository;
 
-        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, AuthBusinessRules authBusinessRules)
+        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, AuthBusinessRules authBusinessRules, MailServiceBase mailServiceBase, IAuthenticatorService authenticatorService, IEmailAuthenticatorRepository emailAuthenticatorRepository)
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
+            this.mailServiceBase = mailServiceBase;
+            _authenticatorService = authenticatorService;
+            _emailAuthenticatorRepository = emailAuthenticatorRepository;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -60,12 +71,17 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                 };
             User createdUser = await _userRepository.AddAsync(newUser);
 
-            AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
-
-            Core.Security.Entities.RefreshToken createdRefreshToken = await _authService.CreateRefreshToken(createdUser, request.IpAddress);
-            Core.Security.Entities.RefreshToken addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
-
-            RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
+            EmailAuthenticator emailAuthenticator = await _authenticatorService.CreateEmailAuthenticator(createdUser);
+            EmailAuthenticator addedEmailAuthenticator = await _emailAuthenticatorRepository.AddAsync(emailAuthenticator);
+            var toEmailList = new List<MailboxAddress> { new(name: $"{createdUser.FirstName} {createdUser.LastName}", createdUser.Email) };
+            await mailServiceBase.SendEmailAsync(new Mail
+            {
+                ToList = toEmailList,
+                Subject = "Email Doğrulama - METFLİX",
+                HtmlBody =
+                        $"Your Verification Key = {addedEmailAuthenticator.ActivationKey} "
+            });
+            RegisteredResponse registeredResponse = new() {};
             return registeredResponse;
         }
     }

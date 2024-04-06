@@ -52,7 +52,7 @@ builder.Services.AddCors(
     opt =>
         opt.AddDefaultPolicy(p =>
         {
-            p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            p.WithOrigins("http://localhost:5331").AllowAnyMethod().AllowAnyHeader();
         })
 );
 builder.Services.AddSwaggerGen(opt =>
@@ -74,6 +74,17 @@ builder.Services.AddSwaggerGen(opt =>
     opt.OperationFilter<BearerSecurityRequirementOperationFilter>();
 });
 
+builder.Services.AddCors(options =>
+{
+ 
+    options.AddPolicy("default", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); 
+    });
+});
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -85,7 +96,7 @@ if (app.Environment.IsDevelopment())
         opt.DocExpansion(DocExpansion.None);
     });
 }
-
+app.UseCors("default");
 if (app.Environment.IsProduction())
     app.ConfigureCustomExceptionMiddleware();
 

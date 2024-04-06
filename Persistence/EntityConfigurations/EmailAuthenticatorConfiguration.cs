@@ -21,5 +21,16 @@ public class EmailAuthenticatorConfiguration : IEntityTypeConfiguration<EmailAut
         builder.HasQueryFilter(ea => !ea.DeletedDate.HasValue);
 
         builder.HasOne(ea => ea.User);
+        builder.HasData(getSeeds());
     }
+    private IEnumerable<EmailAuthenticator> getSeeds()
+    {
+        List<EmailAuthenticator> emailAuthenticators = new();
+
+        EmailAuthenticator emailAuthenticator = new() { Id = 1, UserId = 1, IsVerified = true };
+        emailAuthenticators.Add(emailAuthenticator);
+
+        return emailAuthenticators;
+    }
+
 }

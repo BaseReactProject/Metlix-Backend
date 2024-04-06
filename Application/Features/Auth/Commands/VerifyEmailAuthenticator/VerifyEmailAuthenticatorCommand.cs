@@ -12,10 +12,11 @@ public class VerifyEmailAuthenticatorCommand : IRequest
     public VerifyEmailAuthenticatorCommand()
     {
         ActivationKey = string.Empty;
+
     }
 
     public VerifyEmailAuthenticatorCommand(string activationKey)
-    {
+    { 
         ActivationKey = activationKey;
     }
 

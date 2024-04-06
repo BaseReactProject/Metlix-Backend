@@ -81,7 +81,12 @@ public class AuthBusinessRules : BaseBusinessRules
         if (doesExists)
             throw new BusinessException(AuthMessages.UserMailAlreadyExists);
     }
-
+    public async Task UserShouldBeVerified(int userId)
+    {
+        bool doesExist = await _emailAuthenticatorRepository.AnyAsync(ea => ea.IsVerified == true);
+        if (!doesExist)
+            throw new BusinessException(AuthMessages.UserIsNotVerified);
+    }
     public async Task UserPasswordShouldBeMatch(int id, string password)
     {
         User? user = await _userRepository.GetAsync(predicate: u => u.Id == id, enableTracking: false);

@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Services.Brands;
 using Application.Services.FakeEntities;
+using Application.Services.Accounts;
 
 namespace Application;
 
@@ -49,6 +50,7 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IBrandsService, BrandsManager>();
         services.AddScoped<IFakeEntitiesService, FakeEntitiesManager>();
+        services.AddScoped<IAccountsService, AccountsManager>();
         return services;
     }
 

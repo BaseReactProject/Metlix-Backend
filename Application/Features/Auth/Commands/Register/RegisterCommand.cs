@@ -1,4 +1,5 @@
 ﻿using Application.Features.Auth.Rules;
+using Application.Services.Accounts;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.MailService;
@@ -9,8 +10,10 @@ using Core.Security.Entities;
 using Core.Security.Enums;
 using Core.Security.Hashing;
 using Core.Security.JWT;
+using Domain.Entities;
 using MediatR;
 using MimeKit;
+using Org.BouncyCastle.Bcpg;
 
 namespace Application.Features.Auth.Commands.Register;
 
@@ -39,8 +42,9 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly AuthBusinessRules _authBusinessRules;
         private readonly MailServiceBase mailServiceBase;
         private readonly IEmailAuthenticatorRepository _emailAuthenticatorRepository;
+        private readonly IAccountsService _accountService;
 
-        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, AuthBusinessRules authBusinessRules, MailServiceBase mailServiceBase, IAuthenticatorService authenticatorService, IEmailAuthenticatorRepository emailAuthenticatorRepository)
+        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, AuthBusinessRules authBusinessRules, MailServiceBase mailServiceBase, IAuthenticatorService authenticatorService, IEmailAuthenticatorRepository emailAuthenticatorRepository, IAccountsService accountService)
         {
             _userRepository = userRepository;
             _authService = authService;
@@ -48,6 +52,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
             this.mailServiceBase = mailServiceBase;
             _authenticatorService = authenticatorService;
             _emailAuthenticatorRepository = emailAuthenticatorRepository;
+            _accountService = accountService;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -70,6 +75,17 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                     Status = true
                 };
             User createdUser = await _userRepository.AddAsync(newUser);
+
+
+            Account account = new()
+            {
+                FakeId =await _accountService.CreateFakeIdCodeGenerator(),
+                UserId = createdUser.Id
+            };
+            await _accountService.AddAsync(account);
+
+
+
 
             EmailAuthenticator emailAuthenticator = await _authenticatorService.CreateEmailAuthenticator(createdUser);
             EmailAuthenticator addedEmailAuthenticator = await _emailAuthenticatorRepository.AddAsync(emailAuthenticator);

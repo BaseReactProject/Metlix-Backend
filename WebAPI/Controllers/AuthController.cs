@@ -1,5 +1,7 @@
-﻿using Application.Features.Auth.Commands.EnableEmailAuthenticator;
+﻿using Application.Features.Accounts.Queries.GetById;
+using Application.Features.Auth.Commands.EnableEmailAuthenticator;
 using Application.Features.Auth.Commands.EnableOtpAuthenticator;
+using Application.Features.Auth.Commands.ForgetPassword;
 using Application.Features.Auth.Commands.Login;
 using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
@@ -98,7 +100,12 @@ public class AuthController : BaseController
         await Mediator.Send(verifyEmailAuthenticatorCommand);
         return Ok();
     }
-
+    [HttpGet("ForgetPassword/{email}")]
+    public async Task<IActionResult> GetById([FromRoute] string email)
+    {
+        ForgetPasswordResponse response = await Mediator.Send(new ForgetPasswordCommand { Email = email });
+        return Ok(response);
+    }
     private string getRefreshTokenFromCookies() =>
         Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
 

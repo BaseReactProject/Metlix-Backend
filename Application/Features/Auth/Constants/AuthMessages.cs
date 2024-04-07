@@ -13,4 +13,5 @@ public static class AuthMessages
     public const string UserMailAlreadyExists = "User mail already exists.";
     public const string PasswordDontMatch = "Password don't match.";
     public const string UserIsNotVerified="User isn't verified";
+    public const string EmailShouldBeMatch = "Email Don't Exist"; 
 }

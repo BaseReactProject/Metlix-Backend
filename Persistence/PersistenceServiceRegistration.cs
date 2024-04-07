@@ -28,6 +28,7 @@ public static class PersistenceServiceRegistration
 
         services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<IFakeEntityRepository, FakeEntityRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
         return services;
     }
 }

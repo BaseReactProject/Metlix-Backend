@@ -6,6 +6,7 @@ using Application.Features.Auth.Commands.Login;
 using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Commands.RevokeToken;
+using Application.Features.Auth.Commands.UpdatePassword;
 using Application.Features.Auth.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auth.Commands.VerifyOtpAuthenticator;
 using Core.Application.Dtos;
@@ -105,6 +106,12 @@ public class AuthController : BaseController
     {
         ForgetPasswordResponse response = await Mediator.Send(new ForgetPasswordCommand { Email = email });
         return Ok(response);
+    }
+    [HttpPost("UpdatePassword")]
+    public async Task <IActionResult> UpdatePassword([FromBody] UpdatePasswordCommand updatePasswordCommand)
+    {
+        await Mediator.Send(updatePasswordCommand);
+        return Ok();
     }
     private string getRefreshTokenFromCookies() =>
         Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");

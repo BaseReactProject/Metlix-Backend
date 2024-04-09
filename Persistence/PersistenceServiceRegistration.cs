@@ -29,6 +29,12 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IBrandRepository, BrandRepository>();
         services.AddScoped<IFakeEntityRepository, FakeEntityRepository>();
         services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<IAccountCreditCardRepository, AccountCreditCardRepository>();
+        services.AddScoped<IAccountProfileRepository, AccountProfileRepository>();
+        services.AddScoped<IImageRepository, ImageRepository>();
+        services.AddScoped<IPlanRepository, PlanRepository>();
+        services.AddScoped<IProfileRepository, ProfileRepository>();
+        services.AddScoped<IQualityRepository, QualityRepository>();
         return services;
     }
 }

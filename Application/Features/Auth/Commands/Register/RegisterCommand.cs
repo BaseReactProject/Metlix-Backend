@@ -80,7 +80,11 @@ public class RegisterCommand : IRequest<RegisteredResponse>
             Account account = new()
             {
                 FakeId =await _accountService.CreateFakeIdCodeGenerator(),
-                UserId = createdUser.Id
+                UserId = createdUser.Id,
+                PlanId=1,
+                PhoneNumber="AnyPhoneNumber"
+
+               
             };
             await _accountService.AddAsync(account);
 

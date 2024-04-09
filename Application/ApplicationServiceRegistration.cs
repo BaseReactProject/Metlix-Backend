@@ -18,6 +18,12 @@ using System.Reflection;
 using Application.Services.Brands;
 using Application.Services.FakeEntities;
 using Application.Services.Accounts;
+using Application.Services.AccountCreditCards;
+using Application.Services.AccountProfiles;
+using Application.Services.Images;
+using Application.Services.Plans;
+using Application.Services.Profiles;
+using Application.Services.Qualities;
 
 namespace Application;
 
@@ -51,6 +57,12 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IBrandsService, BrandsManager>();
         services.AddScoped<IFakeEntitiesService, FakeEntitiesManager>();
         services.AddScoped<IAccountsService, AccountsManager>();
+        services.AddScoped<IAccountCreditCardsService, AccountCreditCardsManager>();
+        services.AddScoped<IAccountProfilesService, AccountProfilesManager>();
+        services.AddScoped<IImagesService, ImagesManager>();
+        services.AddScoped<IPlansService, PlansManager>();
+        services.AddScoped<IProfilesService, ProfilesManager>();
+        services.AddScoped<IQualitiesService, QualitiesManager>();
         return services;
     }
 

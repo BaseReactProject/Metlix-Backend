@@ -18,6 +18,12 @@ public class BaseDbContext : DbContext
     public DbSet<Brand> Brands { get; set; }
     public DbSet<FakeEntity> FakeEntities { get; set; }
     public DbSet<Account> Accounts { get; set; }
+    public DbSet<AccountCreditCard> AccountCreditCards { get; set; }
+    public DbSet<AccountProfile> AccountProfiles { get; set; }
+    public DbSet<Image> Images { get; set; }
+    public DbSet<Plan> Plans { get; set; }
+    public DbSet<Profile> Profiles { get; set; }
+    public DbSet<Quality> Qualities { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

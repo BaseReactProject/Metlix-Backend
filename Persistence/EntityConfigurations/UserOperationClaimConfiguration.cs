@@ -30,7 +30,9 @@ public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserOper
         List<UserOperationClaim> userOperationClaims = new();
 
         UserOperationClaim adminUserOperationClaim = new(id: 1, userId: 1, operationClaimId: 1);
+        UserOperationClaim metflixUserOperationClaim = new(id: 2, userId: 2, operationClaimId: 1);
         userOperationClaims.Add(adminUserOperationClaim);
+        userOperationClaims.Add(metflixUserOperationClaim);
 
         return userOperationClaims;
     }

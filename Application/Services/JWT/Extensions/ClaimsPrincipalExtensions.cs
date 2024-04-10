@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Core.Security.Extensions;
+namespace Application.Services.Jwt.Extensions;
 
 public static class ClaimsPrincipalExtensions
 {

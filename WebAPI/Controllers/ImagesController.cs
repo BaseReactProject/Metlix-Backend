@@ -14,7 +14,7 @@ namespace WebAPI.Controllers;
 public class ImagesController : BaseController
 {
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] CreateImageCommand createImageCommand)
+    public async Task<IActionResult> Add([FromForm] CreateImageCommand createImageCommand)
     {
         CreatedImageResponse response = await Mediator.Send(createImageCommand);
 

@@ -21,6 +21,12 @@ public class ProfileBusinessRules : BaseBusinessRules
             throw new BusinessException(ProfilesBusinessMessages.ProfileNotExists);
         return Task.CompletedTask;
     }
+    public Task ProfilePasswordLengthControl(string password,int controlValue)
+    {
+        if (password.Length!= controlValue)
+            throw new BusinessException(ProfilesBusinessMessages.ProfileLengthShouldBeControlled);
+        return Task.CompletedTask;
+    }
 
     public async Task ProfileIdShouldExistWhenSelected(int id, CancellationToken cancellationToken)
     {

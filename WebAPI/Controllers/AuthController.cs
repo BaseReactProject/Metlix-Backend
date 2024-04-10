@@ -3,6 +3,7 @@ using Application.Features.Auth.Commands.EnableEmailAuthenticator;
 using Application.Features.Auth.Commands.EnableOtpAuthenticator;
 using Application.Features.Auth.Commands.ForgetPassword;
 using Application.Features.Auth.Commands.Login;
+using Application.Features.Auth.Commands.ProfileLogin;
 using Application.Features.Auth.Commands.RefreshToken;
 using Application.Features.Auth.Commands.Register;
 using Application.Features.Auth.Commands.RevokeToken;
@@ -41,7 +42,14 @@ public class AuthController : BaseController
 
         return Ok(result.ToHttpResponse());
     }
+    [HttpPost("ProfileLogin")]
+    public async Task<IActionResult> ProfileLogin([FromBody] ProfileLoginCommand profileLoginCommand)
+    {
+        ProfileLoginCommand loginCommand = new() { Password = profileLoginCommand.Password, ProfileId = profileLoginCommand.ProfileId };
+        LoggedResponse result = await Mediator.Send(loginCommand);
 
+        return Ok(result.ToHttpResponse());
+    }
     [HttpPost("Register")]
     public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
     {

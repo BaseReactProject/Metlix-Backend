@@ -22,6 +22,7 @@ using Application.Services.Images;
 using Application.Services.Plans;
 using Application.Services.Profiles;
 using Application.Services.Qualities;
+using Application.Services.JWT;
 
 namespace Application;
 
@@ -51,6 +52,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IAuthenticatorService, AuthenticatorManager>();
         services.AddScoped<IUserService, UserManager>();
+        services.AddScoped<IJwtHelper, JwtHelper>();
 
         services.AddScoped<IAccountsService, AccountsManager>();
         services.AddScoped<IAccountCreditCardsService, AccountCreditCardsManager>();

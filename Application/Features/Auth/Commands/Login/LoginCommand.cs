@@ -4,14 +4,10 @@ using Application.Services.AuthService;
 using Application.Services.MailService;
 using Application.Services.UsersService;
 using Core.Application.Dtos;
-using Core.Mailing;
 using Core.Security.Entities;
 using Core.Security.Enums;
 using Core.Security.JWT;
-using MailKit;
 using MediatR;
-using MimeKit;
-using System.Web;
 namespace Application.Features.Auth.Commands.Login;
 
 public class LoginCommand : IRequest<LoggedResponse>

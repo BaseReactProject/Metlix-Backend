@@ -1,20 +1,25 @@
 using Application.Features.Auth.Constants;
+using Application.Services.Profiles;
 using Application.Services.Repositories;
 using Core.Application.Rules;
 using Core.CrossCuttingConcerns.Exceptions.Types;
 using Core.Security.Entities;
 using Core.Security.Enums;
 using Core.Security.Hashing;
+using Domain.Entities;
 
 namespace Application.Features.Auth.Rules;
 
 public class AuthBusinessRules : BaseBusinessRules
 {
+    private readonly IProfilesService _profileService;
     private readonly IUserRepository _userRepository;
     private readonly IEmailAuthenticatorRepository _emailAuthenticatorRepository;
 
-    public AuthBusinessRules(IUserRepository userRepository, IEmailAuthenticatorRepository emailAuthenticatorRepository)
+
+    public AuthBusinessRules(IProfilesService profileService,IUserRepository userRepository, IEmailAuthenticatorRepository emailAuthenticatorRepository)
     {
+        _profileService = profileService;
         _userRepository = userRepository;
         _emailAuthenticatorRepository = emailAuthenticatorRepository;
     }
@@ -100,4 +105,18 @@ public class AuthBusinessRules : BaseBusinessRules
         if (!HashingHelper.VerifyPasswordHash(password, user!.PasswordHash, user.PasswordSalt))
             throw new BusinessException(AuthMessages.PasswordDontMatch);
     }
+    public async Task ProfilePasswordShouldBeMatch(int id, string password)
+    {
+        Profile? profile = await _profileService.GetAsync(predicate: u => u.Id == id, enableTracking: false);
+        await ProfileShouldBeExistsWhenSelected(profile);
+        if (!HashingHelper.VerifyPasswordHash(password, profile!.PasswordHash, profile.PasswordSalt))
+            throw new BusinessException(AuthMessages.PasswordDontMatch);
+    }
+    public Task ProfileShouldBeExistsWhenSelected(Profile? profile)
+    {
+        if (profile == null)
+            throw new BusinessException(AuthMessages.ProfileDontExists);
+        return Task.CompletedTask;
+    }
+
 }

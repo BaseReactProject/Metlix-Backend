@@ -9,12 +9,10 @@ public class CreatedImageResponse : IResponse
         ImageUrl = string.Empty;
     }
 
-    public CreatedImageResponse(int ýd, string ýmageUrl)
+    public CreatedImageResponse( string ýmageUrl)
     {
-        Id = ýd;
         ImageUrl = ýmageUrl;
     }
 
-    public int Id { get; set; }
     public string ImageUrl { get; set; }
 }

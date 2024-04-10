@@ -6,6 +6,6 @@ public class CreateImageCommandValidator : AbstractValidator<CreateImageCommand>
 {
     public CreateImageCommandValidator()
     {
-        RuleFor(c => c.ImageUrl).NotEmpty();
+        RuleFor(c => c.ImagePath).NotEmpty();
     }
 }

@@ -7,13 +7,10 @@ using Application.Services.Repositories;
 using Core.Application.Dtos;
 using Core.Mailing;
 using Core.Security.Entities;
-using Core.Security.Enums;
 using Core.Security.Hashing;
-using Core.Security.JWT;
 using Domain.Entities;
 using MediatR;
 using MimeKit;
-using Org.BouncyCastle.Bcpg;
 
 namespace Application.Features.Auth.Commands.Register;
 
@@ -43,8 +40,9 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly MailServiceBase mailServiceBase;
         private readonly IEmailAuthenticatorRepository _emailAuthenticatorRepository;
         private readonly IAccountsService _accountService;
+        private readonly IUserOperationClaimRepository _userOperationClaimRepository;
 
-        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, AuthBusinessRules authBusinessRules, MailServiceBase mailServiceBase, IAuthenticatorService authenticatorService, IEmailAuthenticatorRepository emailAuthenticatorRepository, IAccountsService accountService)
+        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, AuthBusinessRules authBusinessRules, MailServiceBase mailServiceBase, IAuthenticatorService authenticatorService, IEmailAuthenticatorRepository emailAuthenticatorRepository, IAccountsService accountService, IUserOperationClaimRepository userOperationClaimRepository)
         {
             _userRepository = userRepository;
             _authService = authService;
@@ -53,6 +51,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>
             _authenticatorService = authenticatorService;
             _emailAuthenticatorRepository = emailAuthenticatorRepository;
             _accountService = accountService;
+            _userOperationClaimRepository = userOperationClaimRepository;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -83,10 +82,10 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                 UserId = createdUser.Id,
                 PlanId=1,
                 PhoneNumber="AnyPhoneNumber"
-
-               
             };
             await _accountService.AddAsync(account);
+            UserOperationClaim userOperationClaim = new(createdUser.Id,1001) { UserId= createdUser.Id,OperationClaimId=1001 };
+            await _userOperationClaimRepository.AddAsync(userOperationClaim);
 
 
 

@@ -9,6 +9,8 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Images.Constants.ImagesOperationClaims;
+using Microsoft.AspNetCore.Http;
+using Application.Services.ImageService;
 
 namespace Application.Features.Images.Commands.Create;
 
@@ -16,15 +18,15 @@ public class CreateImageCommand : IRequest<CreatedImageResponse>, ISecuredReques
 {
     public CreateImageCommand()
     {
-        ImageUrl = string.Empty;
+        ImagePath = new FormFile(Stream.Null, 0, 0, string.Empty, string.Empty) ;
     }
 
-    public CreateImageCommand(string ýmageUrl)
+    public CreateImageCommand(IFormFile imagePath)
     {
-        ImageUrl = ýmageUrl;
+        ImagePath = imagePath;
     }
 
-    public string ImageUrl { get; set; }
+    public IFormFile ImagePath { get; set; }
 
     public string[] Roles => new[] { Admin, Write, ImagesOperationClaims.Create };
 
@@ -37,19 +39,23 @@ public class CreateImageCommand : IRequest<CreatedImageResponse>, ISecuredReques
         private readonly IMapper _mapper;
         private readonly IImageRepository _imageRepository;
         private readonly ImageBusinessRules _imageBusinessRules;
+        private readonly ImageServiceBase imageServiceBase;
 
         public CreateImageCommandHandler(IMapper mapper, IImageRepository imageRepository,
-                                         ImageBusinessRules imageBusinessRules)
+                                         ImageBusinessRules imageBusinessRules, ImageServiceBase ýmageServiceBase)
         {
             _mapper = mapper;
             _imageRepository = imageRepository;
             _imageBusinessRules = imageBusinessRules;
+            imageServiceBase = ýmageServiceBase;
         }
 
         public async Task<CreatedImageResponse> Handle(CreateImageCommand request, CancellationToken cancellationToken)
         {
-            Image image = _mapper.Map<Image>(request);
-
+            Image image = new()
+            {
+                ImageUrl = await imageServiceBase.UploadAsync(request.ImagePath)
+            };
             await _imageRepository.AddAsync(image);
 
             CreatedImageResponse response = _mapper.Map<CreatedImageResponse>(image);

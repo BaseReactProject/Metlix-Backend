@@ -1,7 +1,9 @@
 ﻿using Application.Features.Auth.Rules;
+using Application.Services.JWT;
 using Application.Services.Repositories;
 using Core.Security.Entities;
 using Core.Security.JWT;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -13,7 +15,9 @@ public class AuthManager : IAuthService
     private readonly ITokenHelper _tokenHelper;
     private readonly TokenOptions _tokenOptions;
     private readonly AuthBusinessRules _authBusinessRules;
+    private readonly IAccountRepository accountRepository;
     private readonly IUserOperationClaimRepository _userOperationClaimRepository;
+    private readonly IJwtHelper jwtHelper;
 
     public AuthManager(
         IUserOperationClaimRepository userOperationClaimRepository,
@@ -21,17 +25,19 @@ public class AuthManager : IAuthService
         ITokenHelper tokenHelper,
         IConfiguration configuration,
         AuthBusinessRules authBusinessRules
-    )
+,       IAccountRepository accountRepository,
+        IJwtHelper jwtHelper)
     {
         _userOperationClaimRepository = userOperationClaimRepository;
         _refreshTokenRepository = refreshTokenRepository;
         _tokenHelper = tokenHelper;
         _authBusinessRules = authBusinessRules;
-
+        this.accountRepository = accountRepository;
         const string tokenOptionsConfigurationSection = "TokenOptions";
         _tokenOptions =
             configuration.GetSection(tokenOptionsConfigurationSection).Get<TokenOptions>()
             ?? throw new NullReferenceException($"\"{tokenOptionsConfigurationSection}\" section cannot found in configuration");
+        this.jwtHelper = jwtHelper;
     }
 
     public async Task<AccessToken> CreateAccessToken(User user)
@@ -44,6 +50,18 @@ public class AuthManager : IAuthService
             .ToListAsync();
 
         AccessToken accessToken = _tokenHelper.CreateToken(user, operationClaims);
+        return accessToken;
+    }
+    public async Task<AccessToken> CreateAccessTokenForProfile(int profileId,User user)
+    {
+        IList<OperationClaim> operationClaims = await _userOperationClaimRepository
+            .Query()
+            .AsNoTracking()
+            .Where(p => p.UserId == user.Id)
+            .Select(p => new OperationClaim { Id = p.OperationClaimId, Name = p.OperationClaim.Name })
+            .ToListAsync();
+        Account? account = await this.accountRepository.GetAsync(predicate: a => a.UserId == user.Id);
+        AccessToken accessToken = jwtHelper.CreateToken(accountId:account!.Id,profileId,user, operationClaims);
         return accessToken;
     }
 

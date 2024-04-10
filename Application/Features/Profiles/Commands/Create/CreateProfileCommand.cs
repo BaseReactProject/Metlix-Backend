@@ -9,6 +9,7 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Profiles.Constants.ProfilesOperationClaims;
+using Core.Security.Hashing;
 
 namespace Application.Features.Profiles.Commands.Create;
 
@@ -18,16 +19,19 @@ public class CreateProfileCommand : IRequest<CreatedProfileResponse>, ISecuredRe
     {
         Name = string.Empty;
         ImageId = 0;
+        Password = string.Empty;
     }
 
-    public CreateProfileCommand(string name, int ýmageId)
+    public CreateProfileCommand(string name, int ýmageId, string password)
     {
         Name = name;
         ImageId = ýmageId;
+        Password = password;
     }
 
     public string Name { get; set; }
     public int ImageId { get; set; }
+    public string Password { get; set; }
 
     public string[] Roles => new[] { Admin, Write, ProfilesOperationClaims.Create };
 
@@ -51,8 +55,16 @@ public class CreateProfileCommand : IRequest<CreatedProfileResponse>, ISecuredRe
 
         public async Task<CreatedProfileResponse> Handle(CreateProfileCommand request, CancellationToken cancellationToken)
         {
+            await _profileBusinessRules.ProfilePasswordLengthControl(request.Password, 4);
+            HashingHelper.CreatePasswordHash(
+               request.Password,
+               passwordHash: out byte[] passwordHash,
+               passwordSalt: out byte[] passwordSalt
+           );
+            
             Domain.Entities.Profile profile = _mapper.Map<Domain.Entities.Profile>(request);
-
+            profile.PasswordHash = passwordHash;
+            profile.PasswordSalt = passwordSalt;
             await _profileRepository.AddAsync(profile);
 
             CreatedProfileResponse response = _mapper.Map<CreatedProfileResponse>(profile);

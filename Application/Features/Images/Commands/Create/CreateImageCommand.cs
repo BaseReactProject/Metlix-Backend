@@ -14,6 +14,16 @@ namespace Application.Features.Images.Commands.Create;
 
 public class CreateImageCommand : IRequest<CreatedImageResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public CreateImageCommand()
+    {
+        ImageUrl = string.Empty;
+    }
+
+    public CreateImageCommand(string ýmageUrl)
+    {
+        ImageUrl = ýmageUrl;
+    }
+
     public string ImageUrl { get; set; }
 
     public string[] Roles => new[] { Admin, Write, ImagesOperationClaims.Create };

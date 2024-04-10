@@ -6,7 +6,7 @@ namespace Domain.Entities;
 
 public class Profile : Entity<int>//max count 5 in one account
 {
-    public Profile(string name, byte[] passwordHash, byte[] passwordSalt, int ımageId)
+    public Profile(string name, byte[] passwordHash, byte[] passwordSalt, int ımageId, int id) :base(id)
     {
         Name = name;
         PasswordHash = passwordHash;

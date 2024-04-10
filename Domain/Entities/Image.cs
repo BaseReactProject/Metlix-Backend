@@ -11,7 +11,7 @@ public class Image : Entity<int>
         ImageUrl = string.Empty;
     }
 
-    public Image(string ımageUrl)
+    public Image(string ımageUrl, int id) : base(id)
     {
         ImageUrl = ımageUrl;
     }

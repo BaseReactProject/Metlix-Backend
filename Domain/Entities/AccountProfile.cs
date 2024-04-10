@@ -12,7 +12,7 @@ public class AccountProfile : Entity<int>
         ProfileId = 0;
     }
 
-    public AccountProfile(int accountId, int profileId)
+    public AccountProfile(int accountId, int profileId, int id) : base(id)
     {
         AccountId = accountId;
         ProfileId = profileId;

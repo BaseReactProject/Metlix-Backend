@@ -9,11 +9,25 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Accounts.Constants.AccountsOperationClaims;
+using Core.Security.Entities;
 
 namespace Application.Features.Accounts.Commands.Update;
 
 public class UpdateAccountCommand : IRequest<UpdatedAccountResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public UpdateAccountCommand()
+    {
+        FakeId = string.Empty;
+        UserId = 0;
+    }
+
+    public UpdateAccountCommand(int ýd, string fakeId, int userId)
+    {
+        Id = ýd;
+        FakeId = fakeId;
+        UserId = userId;
+    }
+
     public int Id { get; set; }
     public string FakeId { get; set; }
     public int UserId { get; set; }

@@ -14,6 +14,16 @@ namespace Application.Features.Qualities.Queries.GetList;
 
 public class GetListQualityQuery : IRequest<GetListResponse<GetListQualityListItemDto>>, ISecuredRequest, ICachableRequest
 {
+    public GetListQualityQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListQualityQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles => new[] { Admin, Read };

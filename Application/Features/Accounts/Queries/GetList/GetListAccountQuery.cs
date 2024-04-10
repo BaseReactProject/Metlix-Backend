@@ -14,6 +14,16 @@ namespace Application.Features.Accounts.Queries.GetList;
 
 public class GetListAccountQuery : IRequest<GetListResponse<GetListAccountListItemDto>>, ISecuredRequest, ICachableRequest
 {
+    public GetListAccountQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListAccountQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles => new[] { Admin, Read };

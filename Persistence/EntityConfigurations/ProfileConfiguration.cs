@@ -19,4 +19,5 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
 
         builder.HasQueryFilter(p => !p.DeletedDate.HasValue);
     }
+
 }

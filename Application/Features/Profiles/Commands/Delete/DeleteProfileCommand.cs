@@ -1,5 +1,4 @@
 using Application.Features.Profiles.Constants;
-using Application.Features.Profiles.Constants;
 using Application.Features.Profiles.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -39,7 +38,7 @@ public class DeleteProfileCommand : IRequest<DeletedProfileResponse>, ISecuredRe
 
         public async Task<DeletedProfileResponse> Handle(DeleteProfileCommand request, CancellationToken cancellationToken)
         {
-            Profile? profile = await _profileRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
+            Domain.Entities.Profile? profile = await _profileRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
             await _profileBusinessRules.ProfileShouldExistWhenSelected(profile);
 
             await _profileRepository.DeleteAsync(profile!);

@@ -48,10 +48,10 @@ public class ForgetPasswordCommand : IRequest<ForgetPasswordResponse>, ILoggable
         public async Task<ForgetPasswordResponse> Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
         {
             await authBusinessRules.EmailShouldBeMatch(request.Email);
-            User user = await _userRepository.GetAsync(u => u.Email == request.Email);
-            Account account = await accountsService.GetAsync(a => a.UserId == user.Id);
+            User? user = await _userRepository.GetAsync(u => u.Email == request.Email);
+            Account? account = await accountsService.GetAsync(a => a.UserId == user!.Id);
 
-            var toEmailList = new List<MailboxAddress> { new(name: $"{user.FirstName} {user.LastName}", user.Email) };
+            var toEmailList = new List<MailboxAddress> { new(name: $"{user!.FirstName} {user!.LastName}", user!.Email) };
 
             await mailServiceBase.SendEmailAsync(
                 new Mail
@@ -106,7 +106,7 @@ public class ForgetPasswordCommand : IRequest<ForgetPasswordResponse>, ILoggable
                                 <h1 class='logo' style='width:75%;align-items:center;justify-content:center;margin-left:12.5%'><b style='font-size:36px;margin-top:5px;'>M</b>ETFLIX</h1>
                                 <p>Merhaba,</p>
                                 <p>Şifre Değiştirme Bağlantınız:</p>
-                                <a class='code' src='{"localhost:3000/"+account.FakeId}'>{"localhost:3000/" + account.FakeId}</a>
+                                <a class='code' src='{"localhost:3000/"+account!.FakeId}'>{"localhost:3000/" + account!.FakeId}</a>
                                 <p>Lütfen bu kodu kullanarak işlemi tamamlayınız.</p>
                             </div>
                         </body>

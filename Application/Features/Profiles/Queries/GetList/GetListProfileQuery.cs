@@ -14,6 +14,16 @@ namespace Application.Features.Profiles.Queries.GetList;
 
 public class GetListProfileQuery : IRequest<GetListResponse<GetListProfileListItemDto>>, ISecuredRequest, ICachableRequest
 {
+    public GetListProfileQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListProfileQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles => new[] { Admin, Read };
@@ -36,7 +46,7 @@ public class GetListProfileQuery : IRequest<GetListResponse<GetListProfileListIt
 
         public async Task<GetListResponse<GetListProfileListItemDto>> Handle(GetListProfileQuery request, CancellationToken cancellationToken)
         {
-            IPaginate<Profile> profiles = await _profileRepository.GetListAsync(
+            IPaginate<Domain.Entities.Profile> profiles = await _profileRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken

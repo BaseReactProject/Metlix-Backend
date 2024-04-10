@@ -14,6 +14,16 @@ namespace Application.Features.AccountCreditCards.Queries.GetList;
 
 public class GetListAccountCreditCardQuery : IRequest<GetListResponse<GetListAccountCreditCardListItemDto>>, ISecuredRequest, ICachableRequest
 {
+    public GetListAccountCreditCardQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListAccountCreditCardQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles => new[] { Admin, Read };

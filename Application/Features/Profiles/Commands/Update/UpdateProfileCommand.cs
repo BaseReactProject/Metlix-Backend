@@ -14,6 +14,19 @@ namespace Application.Features.Profiles.Commands.Update;
 
 public class UpdateProfileCommand : IRequest<UpdatedProfileResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public UpdateProfileCommand()
+    {
+        Name = string.Empty;
+        ImageId = 0;
+    }
+
+    public UpdateProfileCommand(int ýd, string name, int ýmageId)
+    {
+        Id = ýd;
+        Name = name;
+        ImageId = ýmageId;
+    }
+
     public int Id { get; set; }
     public string Name { get; set; }
     public int ImageId { get; set; }
@@ -40,7 +53,7 @@ public class UpdateProfileCommand : IRequest<UpdatedProfileResponse>, ISecuredRe
 
         public async Task<UpdatedProfileResponse> Handle(UpdateProfileCommand request, CancellationToken cancellationToken)
         {
-            Profile? profile = await _profileRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
+            Domain.Entities.Profile? profile = await _profileRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
             await _profileBusinessRules.ProfileShouldExistWhenSelected(profile);
             profile = _mapper.Map(request, profile);
 

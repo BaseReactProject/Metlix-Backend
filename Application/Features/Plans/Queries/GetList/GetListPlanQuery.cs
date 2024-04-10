@@ -14,6 +14,16 @@ namespace Application.Features.Plans.Queries.GetList;
 
 public class GetListPlanQuery : IRequest<GetListResponse<GetListPlanListItemDto>>, ISecuredRequest, ICachableRequest
 {
+    public GetListPlanQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListPlanQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles => new[] { Admin, Read };

@@ -14,6 +14,16 @@ namespace Application.Features.Images.Queries.GetList;
 
 public class GetListImageQuery : IRequest<GetListResponse<GetListImageListItemDto>>, ISecuredRequest, ICachableRequest
 {
+    public GetListImageQuery()
+    {
+        PageRequest = new PageRequest { PageIndex = 0, PageSize = 10 };
+    }
+
+    public GetListImageQuery(PageRequest pageRequest)
+    {
+        PageRequest = pageRequest;
+    }
+
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles => new[] { Admin, Read };

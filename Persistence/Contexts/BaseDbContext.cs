@@ -15,8 +15,6 @@ public class BaseDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
-    public DbSet<Brand> Brands { get; set; }
-    public DbSet<FakeEntity> FakeEntities { get; set; }
     public DbSet<Account> Accounts { get; set; }
     public DbSet<AccountCreditCard> AccountCreditCards { get; set; }
     public DbSet<AccountProfile> AccountProfiles { get; set; }

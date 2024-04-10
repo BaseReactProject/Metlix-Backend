@@ -30,7 +30,7 @@ public class GetByIdProfileQuery : IRequest<GetByIdProfileResponse>, ISecuredReq
 
         public async Task<GetByIdProfileResponse> Handle(GetByIdProfileQuery request, CancellationToken cancellationToken)
         {
-            Profile? profile = await _profileRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
+            Domain.Entities.Profile? profile = await _profileRepository.GetAsync(predicate: p => p.Id == request.Id, cancellationToken: cancellationToken);
             await _profileBusinessRules.ProfileShouldExistWhenSelected(profile);
 
             GetByIdProfileResponse response = _mapper.Map<GetByIdProfileResponse>(profile);

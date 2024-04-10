@@ -19,7 +19,7 @@ public class AccountCreditCard : Entity<int>
         HolderNameSalt= Array.Empty<byte>();
     }
 
-    public AccountCreditCard(int accountId, byte[] numberHash, byte[] numberSalt, byte[] expiryDateHash, byte[] expiryDateSalt, byte[] cVVHash, byte[] cVVSalt, byte[] holderNameHash, byte[] holderNameSalt)
+    public AccountCreditCard(int accountId, byte[] numberHash, byte[] numberSalt, byte[] expiryDateHash, byte[] expiryDateSalt, byte[] cVVHash, byte[] cVVSalt, byte[] holderNameHash, byte[] holderNameSalt, int id) : base(id)
     {
         AccountId = accountId;
         NumberHash = numberHash;

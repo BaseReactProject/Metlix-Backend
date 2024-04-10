@@ -14,6 +14,18 @@ namespace Application.Features.Qualities.Commands.Create;
 
 public class CreateQualityCommand : IRequest<CreatedQualityResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public CreateQualityCommand()
+    {
+        Name = string.Empty;
+        Value = 0;
+    }
+
+    public CreateQualityCommand(string name, int value)
+    {
+        Name = name;
+        Value = value;
+    }
+
     public string Name { get; set; }
     public int Value { get; set; }
 

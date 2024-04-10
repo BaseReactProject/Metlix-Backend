@@ -14,6 +14,18 @@ namespace Application.Features.Accounts.Commands.Create;
 
 public class CreateAccountCommand : IRequest<CreatedAccountResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public CreateAccountCommand()
+    {
+        FakeId = string.Empty;
+        UserId = 0;
+    }
+
+    public CreateAccountCommand(string fakeId, int userId)
+    {
+        FakeId = fakeId;
+        UserId = userId;
+    }
+
     public string FakeId { get; set; }
     public int UserId { get; set; }
 

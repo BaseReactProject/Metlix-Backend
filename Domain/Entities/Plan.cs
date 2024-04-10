@@ -6,7 +6,7 @@ namespace Domain.Entities;
 
 public class Plan : Entity<int>
 {
-    public Plan(string name, int qualityId, string description, int deviceCount, decimal price)
+    public Plan(string name, int qualityId, string description, int deviceCount, decimal price, int id) : base(id)
     {
         Name = name;
         QualityId = qualityId;

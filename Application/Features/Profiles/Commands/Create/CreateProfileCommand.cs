@@ -14,6 +14,18 @@ namespace Application.Features.Profiles.Commands.Create;
 
 public class CreateProfileCommand : IRequest<CreatedProfileResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public CreateProfileCommand()
+    {
+        Name = string.Empty;
+        ImageId = 0;
+    }
+
+    public CreateProfileCommand(string name, int ýmageId)
+    {
+        Name = name;
+        ImageId = ýmageId;
+    }
+
     public string Name { get; set; }
     public int ImageId { get; set; }
 
@@ -39,7 +51,7 @@ public class CreateProfileCommand : IRequest<CreatedProfileResponse>, ISecuredRe
 
         public async Task<CreatedProfileResponse> Handle(CreateProfileCommand request, CancellationToken cancellationToken)
         {
-            Profile profile = _mapper.Map<Profile>(request);
+            Domain.Entities.Profile profile = _mapper.Map<Domain.Entities.Profile>(request);
 
             await _profileRepository.AddAsync(profile);
 

@@ -14,6 +14,17 @@ namespace Application.Features.Images.Commands.Update;
 
 public class UpdateImageCommand : IRequest<UpdatedImageResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public UpdateImageCommand()
+    {
+        ImageUrl = string.Empty;
+    }
+
+    public UpdateImageCommand(int ýd, string ýmageUrl)
+    {
+        Id = ýd;
+        ImageUrl = ýmageUrl;
+    }
+
     public int Id { get; set; }
     public string ImageUrl { get; set; }
 

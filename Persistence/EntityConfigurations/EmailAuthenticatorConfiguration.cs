@@ -28,7 +28,9 @@ public class EmailAuthenticatorConfiguration : IEntityTypeConfiguration<EmailAut
         List<EmailAuthenticator> emailAuthenticators = new();
 
         EmailAuthenticator emailAuthenticator = new() { Id = 1, UserId = 1, IsVerified = true };
+        EmailAuthenticator emailAuthenticator2 = new() { Id = 2, UserId = 2, IsVerified = true };
         emailAuthenticators.Add(emailAuthenticator);
+        emailAuthenticators.Add(emailAuthenticator2);
 
         return emailAuthenticators;
     }

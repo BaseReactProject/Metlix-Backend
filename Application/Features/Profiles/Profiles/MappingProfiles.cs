@@ -10,18 +10,18 @@ using Core.Persistence.Paging;
 
 namespace Application.Features.Profiles.Profiles;
 
-public class MappingProfiles : Profile
+public class MappingProfiles : AutoMapper.Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Profile, CreateProfileCommand>().ReverseMap();
-        CreateMap<Profile, CreatedProfileResponse>().ReverseMap();
-        CreateMap<Profile, UpdateProfileCommand>().ReverseMap();
-        CreateMap<Profile, UpdatedProfileResponse>().ReverseMap();
-        CreateMap<Profile, DeleteProfileCommand>().ReverseMap();
-        CreateMap<Profile, DeletedProfileResponse>().ReverseMap();
-        CreateMap<Profile, GetByIdProfileResponse>().ReverseMap();
-        CreateMap<Profile, GetListProfileListItemDto>().ReverseMap();
-        CreateMap<IPaginate<Profile>, GetListResponse<GetListProfileListItemDto>>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, CreateProfileCommand>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, CreatedProfileResponse>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, UpdateProfileCommand>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, UpdatedProfileResponse>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, DeleteProfileCommand>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, DeletedProfileResponse>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, GetByIdProfileResponse>().ReverseMap();
+        CreateMap<Domain.Entities.Profile, GetListProfileListItemDto>().ReverseMap();
+        CreateMap<IPaginate<Domain.Entities.Profile>, GetListResponse<GetListProfileListItemDto>>().ReverseMap();
     }
 }

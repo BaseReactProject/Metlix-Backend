@@ -14,6 +14,19 @@ namespace Application.Features.Qualities.Commands.Update;
 
 public class UpdateQualityCommand : IRequest<UpdatedQualityResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public UpdateQualityCommand()
+    {
+        Name = string.Empty;
+        Value = 0;
+    }
+
+    public UpdateQualityCommand(int ýd, string name, int value)
+    {
+        Id = ýd;
+        Name = name;
+        Value = value;
+    }
+
     public int Id { get; set; }
     public string Name { get; set; }
     public int Value { get; set; }

@@ -15,8 +15,6 @@ using Core.Mailing.MailKitImplementations;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Application.Services.Brands;
-using Application.Services.FakeEntities;
 using Application.Services.Accounts;
 using Application.Services.AccountCreditCards;
 using Application.Services.AccountProfiles;
@@ -54,8 +52,6 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthenticatorService, AuthenticatorManager>();
         services.AddScoped<IUserService, UserManager>();
 
-        services.AddScoped<IBrandsService, BrandsManager>();
-        services.AddScoped<IFakeEntitiesService, FakeEntitiesManager>();
         services.AddScoped<IAccountsService, AccountsManager>();
         services.AddScoped<IAccountCreditCardsService, AccountCreditCardsManager>();
         services.AddScoped<IAccountProfilesService, AccountProfilesManager>();

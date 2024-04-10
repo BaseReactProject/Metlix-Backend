@@ -12,8 +12,27 @@ using static Application.Features.Plans.Constants.PlansOperationClaims;
 
 namespace Application.Features.Plans.Commands.Update;
 
-public class UpdatePlanCommand : IRequest<UpdatedPlanResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class UpdatePlanCommand : MediatR.IRequest<UpdatedPlanResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public UpdatePlanCommand()
+    {
+        Name = string.Empty;
+        QualityId = 0;
+        Description = string.Empty;
+        DeviceCount = 0;
+        Price = 0;
+    }
+
+    public UpdatePlanCommand(int id, string name, int qualityId, string description, int deviceCount, decimal price)
+    {
+        Id = id;
+        Name = name;
+        QualityId = qualityId;
+        Description = description;
+        DeviceCount = deviceCount;
+        Price = price;
+    }
+
     public int Id { get; set; }
     public string Name { get; set; }
     public int QualityId { get; set; }

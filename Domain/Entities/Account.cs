@@ -13,7 +13,7 @@ public class Account : Entity<int>
         PhoneNumber = string.Empty;
         PlanId = 0;
     }
-    public Account(string fakeId, int userId, string phoneNumber, int planId)
+    public Account(string fakeId, int userId, string phoneNumber, int planId, int id) :base(id)
     {
         FakeId = fakeId;
         UserId = userId;

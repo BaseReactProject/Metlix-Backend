@@ -38,7 +38,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         List<User> users = new();
 
         HashingHelper.CreatePasswordHash(
-            password: "Passw0rd",
+            password: "sifre",
             passwordHash: out byte[] passwordHash,
             passwordSalt: out byte[] passwordSalt
         );
@@ -53,7 +53,19 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt
             };
+        User newUser =
+            new()
+            {
+                Id = 2,
+                FirstName = "Metin",
+                LastName = "Koyuncu",
+                Email = "merhabavu53@gmail.com",
+                Status = true,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt
+            };
         users.Add(adminUser);
+        users.Add(newUser);
 
         return users.ToArray();
     }

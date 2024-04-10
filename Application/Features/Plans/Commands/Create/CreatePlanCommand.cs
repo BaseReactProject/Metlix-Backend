@@ -14,6 +14,24 @@ namespace Application.Features.Plans.Commands.Create;
 
 public class CreatePlanCommand : IRequest<CreatedPlanResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
+    public CreatePlanCommand()
+    {
+        Name = string.Empty;
+        QualityId = 0;
+        Description = string.Empty;
+        DeviceCount = 0;
+        Price = 0;
+    }
+
+    public CreatePlanCommand(string name, int qualityId, string description, int deviceCount, decimal price)
+    {
+        Name = name;
+        QualityId = qualityId;
+        Description = description;
+        DeviceCount = deviceCount;
+        Price = price;
+    }
+
     public string Name { get; set; }
     public int QualityId { get; set; }
     public string Description { get; set; }

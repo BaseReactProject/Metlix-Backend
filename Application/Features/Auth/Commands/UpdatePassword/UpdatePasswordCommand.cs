@@ -43,7 +43,7 @@ public class UpdatePasswordCommand:IRequest
         public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
         {
             Account? account = await _accountsService.GetAsync(a => a.FakeId == request.FakeId, cancellationToken: cancellationToken);
-            User? user = await _userRepository.GetAsync(predicate: u => u.Id == account.UserId, cancellationToken: cancellationToken);
+            User? user = await _userRepository.GetAsync(predicate: u => u.Id == account!.UserId, cancellationToken: cancellationToken);
             await _authBusinessRules.UserShouldBeExistsWhenSelected(user);
 
             HashingHelper.CreatePasswordHash(

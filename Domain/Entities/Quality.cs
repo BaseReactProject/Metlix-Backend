@@ -12,7 +12,7 @@ public class Quality : Entity<int>
         Value= 0;
     }
 
-    public Quality(string name, int value)
+    public Quality(string name, int value, int id) : base(id)
     {
         Name = name;
         Value = value;

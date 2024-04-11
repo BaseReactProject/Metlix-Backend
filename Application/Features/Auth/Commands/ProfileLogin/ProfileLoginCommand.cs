@@ -58,7 +58,7 @@ public class ProfileLoginCommand : IRequest<LoggedResponse>,ISecuredRequest
         public async Task<LoggedResponse> Handle(ProfileLoginCommand request, CancellationToken cancellationToken)
         {
             User? user = await _userService.GetAsync(
-                predicate: u => u.Id ==_httpContextAccessor.HttpContext.User.GetUserId(),
+                predicate: u => u.Id ==_httpContextAccessor.HttpContext!.User.GetUserId(),
                 cancellationToken: cancellationToken
             );
 

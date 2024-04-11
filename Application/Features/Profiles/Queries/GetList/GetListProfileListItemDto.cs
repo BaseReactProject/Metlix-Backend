@@ -1,3 +1,4 @@
+using Application.Features.Images.Queries.GetList;
 using Core.Application.Dtos;
 using Nest;
 
@@ -21,4 +22,5 @@ public class GetListProfileListItemDto : IDto
     public int Id { get; set; }
     public string Name { get; set; }
     public int ImageId { get; set; }
+    public GetListImageListItemDto? Image { get; set; }
 }

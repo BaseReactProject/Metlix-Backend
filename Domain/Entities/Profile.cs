@@ -25,6 +25,6 @@ public class Profile : Entity<int>//max count 5 in one account
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
     public int ImageId { get; set; }
-    public virtual Image? Image { get; set; }
+    public virtual Image Image { get; set; } = new();
     public virtual ICollection<AccountProfile>? AccountProfiles { get; set; }
 }

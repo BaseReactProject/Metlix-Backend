@@ -27,6 +27,6 @@ public class Account : Entity<int>
     public string PhoneNumber { get; set; }
     public virtual Plan? Plan { get; set; }
     public virtual User? User { get; set; }
-    public virtual ICollection<AccountProfile>? AccountProfiles { get; set; }
-    public virtual ICollection<AccountCreditCard>? AccountCreditCards { get; set; }
+    public virtual ICollection<AccountProfile> AccountProfiles { get; set; } = new List<AccountProfile>();
+    public virtual ICollection<AccountCreditCard> AccountCreditCards { get; set; } = new List<AccountCreditCard>();
 }

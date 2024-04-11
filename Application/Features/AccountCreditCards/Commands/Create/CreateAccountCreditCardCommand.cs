@@ -9,6 +9,9 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.AccountCreditCards.Constants.AccountCreditCardsOperationClaims;
+using Microsoft.AspNetCore.Http;
+using Application.Services.Jwt.Extensions;
+using Application.Features.Constants;
 
 namespace Application.Features.AccountCreditCards.Commands.Create;
 
@@ -16,7 +19,7 @@ public class CreateAccountCreditCardCommand : IRequest<CreatedAccountCreditCardR
 {
     public int AccountId { get; set; }
 
-    public string[] Roles => new[] { Admin, Write, AccountCreditCardsOperationClaims.Create };
+    public string[] Roles => new[] {MetflixOperationClaims.Account };
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
@@ -27,19 +30,21 @@ public class CreateAccountCreditCardCommand : IRequest<CreatedAccountCreditCardR
         private readonly IMapper _mapper;
         private readonly IAccountCreditCardRepository _accountCreditCardRepository;
         private readonly AccountCreditCardBusinessRules _accountCreditCardBusinessRules;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public CreateAccountCreditCardCommandHandler(IMapper mapper, IAccountCreditCardRepository accountCreditCardRepository,
-                                         AccountCreditCardBusinessRules accountCreditCardBusinessRules)
+                                         AccountCreditCardBusinessRules accountCreditCardBusinessRules, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _accountCreditCardRepository = accountCreditCardRepository;
             _accountCreditCardBusinessRules = accountCreditCardBusinessRules;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<CreatedAccountCreditCardResponse> Handle(CreateAccountCreditCardCommand request, CancellationToken cancellationToken)
         {
             AccountCreditCard accountCreditCard = _mapper.Map<AccountCreditCard>(request);
-
+            accountCreditCard.Id = _httpContextAccessor.HttpContext!.User.GetAccountId();
             await _accountCreditCardRepository.AddAsync(accountCreditCard);
 
             CreatedAccountCreditCardResponse response = _mapper.Map<CreatedAccountCreditCardResponse>(accountCreditCard);

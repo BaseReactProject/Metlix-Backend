@@ -20,6 +20,6 @@ public class AccountProfile : Entity<int>
 
     public int AccountId { get; set; }
     public int ProfileId { get; set; }
-    public virtual Account? Account { get; set; }
-    public virtual Profile? Profile { get; set; }
+    public virtual Account Account { get; set; } = new Account();
+    public virtual Profile Profile { get; set; } = new Profile();
 }

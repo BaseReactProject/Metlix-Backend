@@ -1,4 +1,5 @@
 ﻿using Application.Features.Accounts.Queries.GetById;
+using Application.Features.Accounts.Queries.GetList;
 using Application.Features.Auth.Commands.EnableEmailAuthenticator;
 using Application.Features.Auth.Commands.EnableOtpAuthenticator;
 using Application.Features.Auth.Commands.ForgetPassword;
@@ -10,8 +11,11 @@ using Application.Features.Auth.Commands.RevokeToken;
 using Application.Features.Auth.Commands.UpdatePassword;
 using Application.Features.Auth.Commands.VerifyEmailAuthenticator;
 using Application.Features.Auth.Commands.VerifyOtpAuthenticator;
+using Application.Features.Auth.Queries.GetProfiles;
 using Core.Application.Dtos;
+using Core.Application.Responses;
 using Core.Security.Entities;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -41,6 +45,13 @@ public class AuthController : BaseController
             setRefreshTokenToCookie(result.RefreshToken);
 
         return Ok(result.ToHttpResponse());
+    }
+    
+    [HttpGet("GetProfiles")]
+    public async Task<IActionResult> GetProfiles()
+    {
+        GetListResponse<GetListAccountListItemDto> getListResponse = await Mediator.Send(new GetListProfileForActiveUserQuery());
+        return Ok(getListResponse);
     }
     [HttpPost("ProfileLogin")]
     public async Task<IActionResult> ProfileLogin([FromBody] ProfileLoginCommand profileLoginCommand)

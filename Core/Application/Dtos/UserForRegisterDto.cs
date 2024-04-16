@@ -1,4 +1,6 @@
-﻿namespace Core.Application.Dtos;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Core.Application.Dtos;
 
 public class UserForRegisterDto : IDto
 {
@@ -6,6 +8,7 @@ public class UserForRegisterDto : IDto
     public string Password { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public IFormFile? FormFile { get; set; }
 
     public UserForRegisterDto()
     {

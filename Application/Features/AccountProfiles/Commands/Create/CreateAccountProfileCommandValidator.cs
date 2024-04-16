@@ -6,7 +6,6 @@ public class CreateAccountProfileCommandValidator : AbstractValidator<CreateAcco
 {
     public CreateAccountProfileCommandValidator()
     {
-        RuleFor(c => c.AccountId).NotEmpty();
         RuleFor(c => c.ProfileId).NotEmpty();
     }
 }

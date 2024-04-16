@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Application.Responses;
 using Domain.Entities;
 using Core.Persistence.Paging;
+using Application.Features.AccountProfiles.Commands.Create;
 
 namespace Application.Features.Profiles.Profiles;
 
@@ -15,6 +16,7 @@ public class MappingProfiles : AutoMapper.Profile
     public MappingProfiles()
     {
         CreateMap<Domain.Entities.Profile, CreateProfileCommand>().ReverseMap();
+        CreateMap<AccountProfile, CreateAccountProfileCommand>().ReverseMap();
         CreateMap<Domain.Entities.Profile, CreatedProfileResponse>().ReverseMap();
         CreateMap<Domain.Entities.Profile, UpdateProfileCommand>().ReverseMap();
         CreateMap<Domain.Entities.Profile, UpdatedProfileResponse>().ReverseMap();

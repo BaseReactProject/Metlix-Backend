@@ -10,13 +10,12 @@ public class CreatedProfileResponse : IResponse
         ImageId = 0;
     }
 
-    public CreatedProfileResponse(int ýd, string name, int ýmageId)
+    public CreatedProfileResponse(string name, int ýmageId)
     {
-        Id = ýd;
+
         Name = name;
         ImageId = ýmageId;
     }
-
     public int Id { get; set; }
     public string Name { get; set; }
     public int ImageId { get; set; }

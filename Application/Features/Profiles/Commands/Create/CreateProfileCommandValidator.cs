@@ -6,7 +6,7 @@ public class CreateProfileCommandValidator : AbstractValidator<CreateProfileComm
 {
     public CreateProfileCommandValidator()
     {
-        RuleFor(c => c.Name).NotEmpty();
-        RuleFor(c => c.ImageId).NotEmpty();
+        RuleFor(c => c.Name).NotEmpty().MinimumLength(2).MaximumLength(30).WithMessage("30 dan az 2 den fazla olmalý profil adý");
+        RuleFor(c => c.Password).NotEmpty().Length(4).WithMessage("4 haneli olmalý");
     }
 }

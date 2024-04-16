@@ -6,7 +6,7 @@ namespace Domain.Entities;
 
 public class Profile : Entity<int>//max count 5 in one account
 {
-    public Profile(string name, byte[] passwordHash, byte[] passwordSalt, int ımageId, int id) :base(id)
+    public Profile(string name, byte[] passwordHash, byte[] passwordSalt, int ımageId, int id) : base(id)
     {
         Name = name;
         PasswordHash = passwordHash;
@@ -25,6 +25,6 @@ public class Profile : Entity<int>//max count 5 in one account
     public byte[] PasswordHash { get; set; }
     public byte[] PasswordSalt { get; set; }
     public int ImageId { get; set; }
-    public virtual Image Image { get; set; } = new();
+    public virtual Image? Image { get; set; }
     public virtual ICollection<AccountProfile>? AccountProfiles { get; set; }
 }

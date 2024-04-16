@@ -15,9 +15,9 @@ public class MappingProfiles : AutoMapper.Profile
     {
         CreateMap<RefreshToken, RevokedTokenResponse>().ReverseMap();
         CreateMap<Account, GetListAccountListItemDto>().ReverseMap();
-        CreateMap<IPaginate<AccountProfile>, GetListResponse<GetListAccountListItemDto>>().ReverseMap();
+        CreateMap<IPaginate<Account>, GetListResponse<GetListAccountListItemDto>>().ReverseMap();
         CreateMap<Account, GetListAccountListItemDto>()
-         .ForMember(dest => dest.AccountProfiles, opt => opt.MapFrom(src => src.AccountProfiles.Select(ap=>ap.Profile).ToList()))
+         .ForMember(dest => dest.AccountProfiles, opt => opt.MapFrom(src => src.AccountProfiles.Select(ap => ap.Profile).ToList()))
          ;
     }
 }

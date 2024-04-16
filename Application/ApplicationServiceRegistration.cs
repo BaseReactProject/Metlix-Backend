@@ -23,6 +23,20 @@ using Application.Services.Plans;
 using Application.Services.Profiles;
 using Application.Services.Qualities;
 using Application.Services.JWT;
+using Application.Services.Contents;
+using Application.Services.ContentActors;
+using Application.Services.ContentCategories;
+using Application.Services.ContentDirectors;
+using Application.Services.ContentGenres;
+using Application.Services.ContentNotices;
+using Application.Services.ContentScenarists;
+using Application.Services.ContentTrailers;
+using Application.Services.Genres;
+using Application.Services.Movies;
+using Application.Services.Notices;
+using Application.Services.People;
+using Application.Services.Trailers;
+using Application.Services.TrailerGenres;
 
 namespace Application;
 
@@ -61,6 +75,20 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPlansService, PlansManager>();
         services.AddScoped<IProfilesService, ProfilesManager>();
         services.AddScoped<IQualitiesService, QualitiesManager>();
+        services.AddScoped<IContentsService, ContentsManager>();
+        services.AddScoped<IContentActorsService, ContentActorsManager>();
+        services.AddScoped<IContentCategoriesService, ContentCategoriesManager>();
+        services.AddScoped<IContentDirectorsService, ContentDirectorsManager>();
+        services.AddScoped<IContentGenresService, ContentGenresManager>();
+        services.AddScoped<IContentNoticesService, ContentNoticesManager>();
+        services.AddScoped<IContentScenaristsService, ContentScenaristsManager>();
+        services.AddScoped<IContentTrailersService, ContentTrailersManager>();
+        services.AddScoped<IGenresService, GenresManager>();
+        services.AddScoped<IMoviesService, MoviesManager>();
+        services.AddScoped<INoticesService, NoticesManager>();
+        services.AddScoped<IPeopleService, PeopleManager>();
+        services.AddScoped<ITrailersService, TrailersManager>();
+        services.AddScoped<ITrailerGenresService, TrailerGenresManager>();
         return services;
     }
 

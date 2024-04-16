@@ -22,6 +22,20 @@ public class BaseDbContext : DbContext
     public DbSet<Plan> Plans { get; set; }
     public DbSet<Profile> Profiles { get; set; }
     public DbSet<Quality> Qualities { get; set; }
+    public DbSet<Content> Contents { get; set; }
+    public DbSet<ContentActor> ContentActors { get; set; }
+    public DbSet<ContentCategory> ContentCategories { get; set; }
+    public DbSet<ContentDirector> ContentDirectors { get; set; }
+    public DbSet<ContentGenre> ContentGenres { get; set; }
+    public DbSet<ContentNotice> ContentNotices { get; set; }
+    public DbSet<ContentScenarist> ContentScenarists { get; set; }
+    public DbSet<ContentTrailer> ContentTrailers { get; set; }
+    public DbSet<Genre> Genres { get; set; }
+    public DbSet<Movie> Movies { get; set; }
+    public DbSet<Notice> Notices { get; set; }
+    public DbSet<Person> People { get; set; }
+    public DbSet<Trailer> Trailers { get; set; }
+    public DbSet<TrailerGenre> TrailerGenres { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

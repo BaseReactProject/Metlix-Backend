@@ -10,7 +10,7 @@ using Core.Security.Entities;
 
 namespace Application.Features.UserOperationClaims.Profiles;
 
-public class MappingProfiles : Profile
+public class MappingProfiles : AutoMapper.Profile
 {
     public MappingProfiles()
     {

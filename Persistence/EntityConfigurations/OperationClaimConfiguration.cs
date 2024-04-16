@@ -33,6 +33,9 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new OperationClaim { Id = 1, Name = GeneralOperationClaims.Admin },
                 new OperationClaim { Id = 2, Name = MetflixOperationClaims.Account }
             };
+        
+       
+        
         return seeds;
     }
 }

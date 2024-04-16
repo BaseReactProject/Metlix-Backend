@@ -33,6 +33,20 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IPlanRepository, PlanRepository>();
         services.AddScoped<IProfileRepository, ProfileRepository>();
         services.AddScoped<IQualityRepository, QualityRepository>();
+        services.AddScoped<IContentRepository, ContentRepository>();
+        services.AddScoped<IContentActorRepository, ContentActorRepository>();
+        services.AddScoped<IContentCategoryRepository, ContentCategoryRepository>();
+        services.AddScoped<IContentDirectorRepository, ContentDirectorRepository>();
+        services.AddScoped<IContentGenreRepository, ContentGenreRepository>();
+        services.AddScoped<IContentNoticeRepository, ContentNoticeRepository>();
+        services.AddScoped<IContentScenaristRepository, ContentScenaristRepository>();
+        services.AddScoped<IContentTrailerRepository, ContentTrailerRepository>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
+        services.AddScoped<IMovieRepository, MovieRepository>();
+        services.AddScoped<INoticeRepository, NoticeRepository>();
+        services.AddScoped<IPersonRepository, PersonRepository>();
+        services.AddScoped<ITrailerRepository, TrailerRepository>();
+        services.AddScoped<ITrailerGenreRepository, TrailerGenreRepository>();
         return services;
     }
 }

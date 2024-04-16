@@ -10,7 +10,7 @@ public class FileVideoServiceAdapter : VideoServiceBase
     public override async Task<string> UploadAsync(IFormFile formFile)
     {
         await FileMustBeInVideoFormat(formFile);
-        var saveFolder = @"D:\YourFolderName";
+        var saveFolder = @"D:\Videos";
         var fileName = formFile.FileName;
         var filePath = Path.Combine(saveFolder, fileName);
 

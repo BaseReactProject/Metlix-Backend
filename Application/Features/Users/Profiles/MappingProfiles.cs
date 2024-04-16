@@ -11,7 +11,7 @@ using Core.Security.Entities;
 
 namespace Application.Features.Users.Profiles;
 
-public class MappingProfiles : Profile
+public class MappingProfiles : AutoMapper.Profile
 {
     public MappingProfiles()
     {

@@ -37,6 +37,8 @@ using Application.Services.Notices;
 using Application.Services.People;
 using Application.Services.Trailers;
 using Application.Services.TrailerGenres;
+using Application.Services.ContentIntroes;
+using Application.Services.ContentOutroes;
 
 namespace Application;
 
@@ -89,6 +91,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IPeopleService, PeopleManager>();
         services.AddScoped<ITrailersService, TrailersManager>();
         services.AddScoped<ITrailerGenresService, TrailerGenresManager>();
+        services.AddScoped<IContentIntroesService, ContentIntroesManager>();
+        services.AddScoped<IContentOutroesService, ContentOutroesManager>();
         return services;
     }
 

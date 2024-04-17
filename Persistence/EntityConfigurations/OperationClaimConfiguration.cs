@@ -35,7 +35,6 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
             };
         
        
-        
         return seeds;
     }
 }

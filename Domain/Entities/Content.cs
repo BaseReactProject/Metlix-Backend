@@ -15,10 +15,11 @@ public class Content:Entity<int>
         MovieId = 0;
         Duration = 0;
         ReleaseDate = DateTime.MinValue;
-
+        ContentIntroId = 0;
+        ContentOutroId = 0;
     }
 
-    public Content(string name, int movieId, string thumbnailUrl, float duration, DateTime releaseDate, string ageLimit, string description,int id):base(id)
+    public Content(string name, int movieId, string thumbnailUrl, float duration, DateTime releaseDate, string ageLimit, string description,int id,int contentIntroId,int contentOutroId):base(id)
     {
         Name = name;
         MovieId = movieId;
@@ -27,6 +28,8 @@ public class Content:Entity<int>
         ReleaseDate = releaseDate;
         AgeLimit = ageLimit;
         Description = description;
+        ContentIntroId = contentIntroId;
+        ContentOutroId = contentOutroId;
     }
 
     public string Name { get; set; }
@@ -36,6 +39,10 @@ public class Content:Entity<int>
     public DateTime ReleaseDate { get; set; }
     public string AgeLimit { get; set; }
     public string Description { get; set; }
+    public int ContentIntroId { get; set; }
+    public int ContentOutroId { get; set; }
+    public virtual ContentIntro? ContentIntro { get; set; }
+    public virtual ContentOutro? ContentOutro { get; set; }
     public virtual Movie? Movie { get; set; }
     public virtual ICollection<ContentNotice>? ContentNotices { get; set; }
     public virtual ICollection<ContentActor>? ContentActors { get; set; }

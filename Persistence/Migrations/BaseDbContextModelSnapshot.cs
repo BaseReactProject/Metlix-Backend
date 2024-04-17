@@ -295,8 +295,8 @@ namespace Persistence.Migrations
                             Email = "admin@admin.com",
                             FirstName = "Admin",
                             LastName = "NArchitecture",
-                            PasswordHash = new byte[] { 167, 230, 70, 237, 115, 135, 200, 204, 239, 0, 7, 246, 254, 125, 168, 190, 54, 2, 138, 197, 226, 240, 250, 87, 61, 137, 170, 199, 78, 160, 236, 180, 72, 114, 209, 240, 50, 65, 189, 135, 23, 109, 182, 18, 62, 184, 154, 122, 127, 251, 122, 240, 51, 34, 33, 72, 216, 50, 130, 229, 236, 162, 37, 55 },
-                            PasswordSalt = new byte[] { 152, 62, 131, 105, 239, 211, 107, 242, 80, 58, 236, 83, 104, 184, 9, 89, 161, 85, 97, 240, 161, 122, 111, 92, 105, 78, 218, 21, 116, 117, 247, 93, 70, 178, 43, 252, 68, 57, 23, 244, 156, 32, 213, 253, 16, 169, 212, 2, 39, 17, 94, 76, 36, 24, 183, 143, 253, 106, 95, 187, 236, 224, 6, 1, 49, 136, 217, 81, 130, 127, 8, 36, 205, 154, 124, 114, 19, 220, 163, 229, 221, 118, 0, 80, 176, 35, 201, 114, 208, 15, 59, 48, 197, 168, 39, 195, 98, 251, 66, 156, 233, 190, 242, 253, 203, 250, 241, 186, 133, 253, 4, 238, 20, 119, 100, 84, 201, 253, 242, 188, 115, 199, 168, 167, 2, 235, 243, 241 },
+                            PasswordHash = new byte[] { 112, 67, 161, 239, 220, 109, 66, 31, 17, 4, 48, 30, 196, 115, 180, 205, 231, 231, 153, 242, 129, 218, 48, 111, 174, 100, 146, 64, 166, 0, 106, 53, 106, 4, 93, 229, 91, 37, 239, 121, 45, 149, 125, 157, 166, 92, 210, 84, 158, 169, 117, 94, 78, 164, 10, 104, 12, 227, 187, 190, 120, 173, 51, 195 },
+                            PasswordSalt = new byte[] { 30, 215, 124, 201, 77, 56, 201, 118, 62, 174, 2, 206, 165, 59, 85, 30, 86, 133, 144, 4, 172, 72, 16, 37, 82, 172, 93, 17, 46, 173, 148, 159, 27, 25, 83, 7, 32, 130, 209, 8, 56, 112, 182, 183, 206, 19, 16, 230, 5, 171, 245, 210, 173, 49, 18, 231, 205, 232, 176, 8, 80, 58, 155, 25, 222, 96, 151, 118, 142, 86, 137, 240, 60, 67, 150, 11, 44, 152, 121, 62, 26, 2, 104, 92, 166, 50, 161, 25, 163, 85, 73, 214, 109, 34, 34, 163, 196, 74, 105, 26, 209, 129, 174, 147, 22, 89, 39, 206, 88, 239, 34, 78, 146, 154, 220, 249, 210, 111, 229, 242, 62, 67, 62, 23, 151, 246, 39, 102 },
                             Status = true
                         },
                         new
@@ -307,8 +307,8 @@ namespace Persistence.Migrations
                             Email = "merhabavu53@gmail.com",
                             FirstName = "Metin",
                             LastName = "Koyuncu",
-                            PasswordHash = new byte[] { 167, 230, 70, 237, 115, 135, 200, 204, 239, 0, 7, 246, 254, 125, 168, 190, 54, 2, 138, 197, 226, 240, 250, 87, 61, 137, 170, 199, 78, 160, 236, 180, 72, 114, 209, 240, 50, 65, 189, 135, 23, 109, 182, 18, 62, 184, 154, 122, 127, 251, 122, 240, 51, 34, 33, 72, 216, 50, 130, 229, 236, 162, 37, 55 },
-                            PasswordSalt = new byte[] { 152, 62, 131, 105, 239, 211, 107, 242, 80, 58, 236, 83, 104, 184, 9, 89, 161, 85, 97, 240, 161, 122, 111, 92, 105, 78, 218, 21, 116, 117, 247, 93, 70, 178, 43, 252, 68, 57, 23, 244, 156, 32, 213, 253, 16, 169, 212, 2, 39, 17, 94, 76, 36, 24, 183, 143, 253, 106, 95, 187, 236, 224, 6, 1, 49, 136, 217, 81, 130, 127, 8, 36, 205, 154, 124, 114, 19, 220, 163, 229, 221, 118, 0, 80, 176, 35, 201, 114, 208, 15, 59, 48, 197, 168, 39, 195, 98, 251, 66, 156, 233, 190, 242, 253, 203, 250, 241, 186, 133, 253, 4, 238, 20, 119, 100, 84, 201, 253, 242, 188, 115, 199, 168, 167, 2, 235, 243, 241 },
+                            PasswordHash = new byte[] { 112, 67, 161, 239, 220, 109, 66, 31, 17, 4, 48, 30, 196, 115, 180, 205, 231, 231, 153, 242, 129, 218, 48, 111, 174, 100, 146, 64, 166, 0, 106, 53, 106, 4, 93, 229, 91, 37, 239, 121, 45, 149, 125, 157, 166, 92, 210, 84, 158, 169, 117, 94, 78, 164, 10, 104, 12, 227, 187, 190, 120, 173, 51, 195 },
+                            PasswordSalt = new byte[] { 30, 215, 124, 201, 77, 56, 201, 118, 62, 174, 2, 206, 165, 59, 85, 30, 86, 133, 144, 4, 172, 72, 16, 37, 82, 172, 93, 17, 46, 173, 148, 159, 27, 25, 83, 7, 32, 130, 209, 8, 56, 112, 182, 183, 206, 19, 16, 230, 5, 171, 245, 210, 173, 49, 18, 231, 205, 232, 176, 8, 80, 58, 155, 25, 222, 96, 151, 118, 142, 86, 137, 240, 60, 67, 150, 11, 44, 152, 121, 62, 26, 2, 104, 92, 166, 50, 161, 25, 163, 85, 73, 214, 109, 34, 34, 163, 196, 74, 105, 26, 209, 129, 174, 147, 22, 89, 39, 206, 88, 239, 34, 78, 146, 154, 220, 249, 210, 111, 229, 242, 62, 67, 62, 23, 151, 246, 39, 102 },
                             Status = true
                         });
                 });
@@ -542,6 +542,12 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("AgeLimit");
 
+                    b.Property<int>("ContentIntroId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContentOutroId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("CreatedDate");
@@ -582,6 +588,12 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContentIntroId")
+                        .IsUnique();
+
+                    b.HasIndex("ContentOutroId")
+                        .IsUnique();
 
                     b.HasIndex("MovieId");
 
@@ -740,6 +752,40 @@ namespace Persistence.Migrations
                     b.ToTable("ContentGenres", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.ContentIntro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EndTime");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("StartTime");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContentIntroes", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.ContentNotice", b =>
                 {
                     b.Property<int>("Id")
@@ -776,6 +822,40 @@ namespace Persistence.Migrations
                     b.HasIndex("NoticeId");
 
                     b.ToTable("ContentNotices", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.ContentOutro", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EndTime");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("StartTime");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContentOutroes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ContentScenarist", b =>
@@ -1366,11 +1446,27 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Content", b =>
                 {
+                    b.HasOne("Domain.Entities.ContentIntro", "ContentIntro")
+                        .WithOne("Content")
+                        .HasForeignKey("Domain.Entities.Content", "ContentIntroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ContentOutro", "ContentOutro")
+                        .WithOne("Content")
+                        .HasForeignKey("Domain.Entities.Content", "ContentOutroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Movie", "Movie")
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ContentIntro");
+
+                    b.Navigation("ContentOutro");
 
                     b.Navigation("Movie");
                 });
@@ -1587,6 +1683,16 @@ namespace Persistence.Migrations
                     b.Navigation("ContentScenarists");
 
                     b.Navigation("ContentTrailers");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ContentIntro", b =>
+                {
+                    b.Navigation("Content");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ContentOutro", b =>
+                {
+                    b.Navigation("Content");
                 });
 
             modelBuilder.Entity("Domain.Entities.Profile", b =>

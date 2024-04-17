@@ -36,6 +36,8 @@ public class BaseDbContext : DbContext
     public DbSet<Person> People { get; set; }
     public DbSet<Trailer> Trailers { get; set; }
     public DbSet<TrailerGenre> TrailerGenres { get; set; }
+    public DbSet<ContentIntro> ContentIntroes { get; set; }
+    public DbSet<ContentOutro> ContentOutroes { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

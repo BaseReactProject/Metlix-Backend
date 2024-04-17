@@ -47,6 +47,8 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<ITrailerRepository, TrailerRepository>();
         services.AddScoped<ITrailerGenreRepository, TrailerGenreRepository>();
+        services.AddScoped<IContentIntroRepository, ContentIntroRepository>();
+        services.AddScoped<IContentOutroRepository, ContentOutroRepository>();
         return services;
     }
 }

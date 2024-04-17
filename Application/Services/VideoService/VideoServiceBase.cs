@@ -8,10 +8,9 @@ namespace Application.Services.VideoService;
 public abstract class VideoServiceBase
 {
     public abstract Task<string> UploadAsync(IFormFile formFile);
-
     protected async Task FileMustBeInVideoFormat(IFormFile formFile)
     {
-        List<string> extensions = new() { ".mp4", ".awi" };
+        List<string> extensions = new() { ".mp4" };
 
         string extension = Path.GetExtension(formFile.FileName).ToLower();
         if (!extensions.Contains(extension))

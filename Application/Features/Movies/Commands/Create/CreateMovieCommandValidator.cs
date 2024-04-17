@@ -6,6 +6,6 @@ public class CreateMovieCommandValidator : AbstractValidator<CreateMovieCommand>
 {
     public CreateMovieCommandValidator()
     {
-        RuleFor(c => c.MovieUrl).NotEmpty();
+        RuleFor(c => c.Movie).NotEmpty();
     }
 }

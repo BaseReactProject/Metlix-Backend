@@ -14,7 +14,7 @@ namespace WebAPI.Controllers;
 public class MoviesController : BaseController
 {
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] CreateMovieCommand createMovieCommand)
+    public async Task<IActionResult> Add([FromForm] CreateMovieCommand createMovieCommand)
     {
         CreatedMovieResponse response = await Mediator.Send(createMovieCommand);
 
